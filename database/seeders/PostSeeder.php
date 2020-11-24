@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use Illuminate\Database\Seeder;
+use Illuminate\Foundation\Auth\User;
 
 class PostSeeder extends Seeder {
     /**
@@ -12,6 +13,10 @@ class PostSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Post::factory()->times(100)->create();
+        $users = User::all();
+
+        foreach($users as $user) {
+            Post::factory()->times(rand(0, 10))->create(['user_id' => $user->id]);
+        }
     }
 }
